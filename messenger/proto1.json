@@ -1,0 +1,97 @@
+{
+    "name": "RTM Protocol",
+    "version": "1",
+    "description": "Real Time Messaging protocol",
+    "commands": [
+        {
+            "id": "C0",
+            "name": "find_or_create_room",
+            "description": "Join a room",
+            "params": [{"id": "uids", "type": "array"}],
+            "returned": [{"id": "room_id", "type": "string"},
+                         {"id": "participants", "type": "array"}]
+        },
+        {
+            "id": "C1",
+            "name": "send_message",
+            "description": "Send a message to a room",
+            "params": [
+                {"id": "room_id", "type": "string"},
+                {"id": "message_data", "type": "string"}
+            ]
+        },
+        {
+            "id": "C2",
+            "name": "mark_message_delivered",
+            "description": "Mark a message as delivered",
+            "params": [{"id": "message_id", "type": "string"}]
+        },
+        {
+            "id": "C3",
+            "name": "mark_message_read",
+            "description": "Mark a message as read",
+            "params": [{"id": "message_id", "type": "string"}]
+        }
+    ],
+    "notifications": [
+        {
+            "id": "N0",
+            "name": "new_message",
+            "description": "Client to recieve a new message from a room member",
+            "returned": [
+                {"id": "room_id", "type": "string"},
+                {"id": "message_data", "type": "string"},
+                {"id": "message_id", "type": "string"},
+                {"id": "message_status", "type": "string"}
+            ]
+        },
+        {
+            "id": "N1",
+            "name": "message_delivered",
+            "description": "Notify Client when a message has been delivered to a member of a room",
+            "returned": [
+                {"id": "room_id", "type": "string"},
+                {"id": "room_member_id", "type": "string"},
+                {"id": "message_id", "type": "string"}
+            ]
+        },
+        {
+            "id": "N2",
+            "name": "message_read",
+            "description": "Notify Client when a message has been read by a member of a room",
+            "returned": [
+                {"id": "room_id", "type": "string"},
+                {"id": "room_member_id", "type": "string"},
+                {"id": "message_id", "type": "string"}
+            ]
+        },
+        {
+            "id": "N3",
+            "name": "error_message",
+            "description": "Notify Client that error occured",
+            "returned": [{"id": "error", "type": "string"}]
+        },
+        {
+            "id": "N4",
+            "name": "connected_to_room",
+            "description": "Notify Client that they are now connected to a room",
+            "returned": [{"id": "room_id", "type": "string"}]
+        },
+        {
+            "id": "N5",
+            "name": "most_recent_chats",
+            "description": "Notify Client for 10 most recent chats",
+            "returned": [
+                {"id": "room_id", "type": "string"},
+                {"id": "last_message", "type": "string"},
+                {
+                    "participants": [
+                        {"id": "user_id", "type": "string"},
+                        {"id": "first_name", "type": "string"},
+                        {"id": "last_name", "type": "string"}
+                    ]
+                }
+            ]
+        }
+    ]
+}
